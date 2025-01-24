@@ -26,7 +26,7 @@ export default function Home() {
     useEffect(() => {
         let intervalId: NodeJS.Timeout | number | null = null;
         const calculateCostPerSecond = () => {
-            // Annahme: 160 Arbeitsstunden pro Monat, 7 Stunden pro Tag, 20 Arbeitstage
+        // Assumption: 160 working hours per month, 7 hours per day, 20 working days
             const hourlySalary = meetingAverageSalary / 140;
             const costPerSecond = hourlySalary / 3600;
             return costPerSecond * meetingMemberCount;
@@ -46,14 +46,6 @@ export default function Home() {
         }
     }, [meetingTimerStarted, meetingMemberCount, meetingAverageSalary]);
 
-    const startMeeting = () => {
-        setMeetingTimerStarted(true);
-    };
-
-    const stopMeeting = () => {
-        setMeetingTimerStarted(false);
-        setMeetingFinish(currentMeetingTime);
-    };
 
   return (
       <div>
@@ -118,15 +110,13 @@ export default function Home() {
 
                               <Card width={"xl"} height={"l"} radius="l-4">
                                   <Column fillWidth={true} content={"center"} align={"center"} paddingTop={"xl"}>
-                                      <Heading>Geld verbrannt:</Heading>
+                                      <Heading>Cost:</Heading>
 
                                           <Heading variant="display-default-xl" paddingTop={"l"} style={{
                                               fontWeight: 'bold',
                                               color: 'white',
                                               animation: 'flash 1.5s infinite alternate'
                                           }}>
-
-
                                               {burnedMoney.toFixed(2)}€
 
                                           </Heading>
@@ -178,7 +168,6 @@ export default function Home() {
                     </Heading>
 
 
-                    {/* LOGIN */}
                     <Row
                         marginY="32"
                         background="overlay"
@@ -204,24 +193,18 @@ export default function Home() {
                                     height: "1rem",
                                 }}
                             />
-                            <Logo wordmark={false} size="l" />
-                            <Heading as="h3" variant="display-default-s">
-                                Gebe die Team Daten an.
-                            </Heading>
-
 
                             <NumberInput
                                 id="membercount"
-                                label="Mitarbeiter anzahl"
+                                label="Workers count"
                                 onChange={(e) => setMeetingMemberCount(e)}
                                 value={meetingMemberCount}
                                 errorMessage={false}
                                 radius="top"
                             />
                             <NumberInput
-                                autoComplete="new-password"
                                 id="averagesalary"
-                                label="Durschnittsgehalt in €"
+                                label="Averagesalary"
                                 radius="bottom"
                                 onChange={(e) => setMeetingAverageSalary(e)}
                                 value={meetingAverageSalary}
